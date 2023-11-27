@@ -1,0 +1,43 @@
+<?php
+
+declare(strict_types=1);
+
+/** @var AbstractBlock $block */
+
+use Magento\Framework\View\Element\AbstractBlock;
+use Paytrail\PaymentServiceHyvaCheckout\ViewModel\PaymentMethodsViewModel;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use Paytrail\PaymentService\Model\Payment\PaymentDataProvider;
+
+///** @var PaymentMethodsViewModel $cardViewModel */
+//$cardViewModel = $viewModels->require(PaymentMethodsViewModel::class);
+
+/** @var Template $block */
+/** @var PaymentDataProvider $method */
+
+$method = $block->getData('method');
+
+?>
+<div id="#examplePspFormContainer" wire:key="paytrail_payment">
+    <div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+        <!-- ko if: getIsSuccess() -->
+        <div class="payment-method-title field choice">
+            <input type="radio"
+                   name="payment[method]"
+                   class="radio"
+                   data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+            <label data-bind="attr: {'for': getCode()}" class="label">
+                <span data-bind="text: getTitle()"></span>
+                <div class="paytrail-logo">
+                    <div class="paytrail-logo-container">
+                        <img src="https://cdn2.hubspot.net/hubfs/335946/System/paytrail-logo.png" alt="Paytrail Payment Service">
+                    </div>
+                </div>
+            </label>
+        </div>
+        <!-- /ko -->
+    </div>
+
+</div>
+

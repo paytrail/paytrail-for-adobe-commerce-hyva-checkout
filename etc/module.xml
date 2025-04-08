@@ -3,9 +3,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
     <module name="Paytrail_PaymentServiceHyvaCheckout">
         <sequence>
-            <module name="Paytrail_PaymentService"/>
-            <module name="Magento_QuoteGraphQl"/>
-            <module name="Hyva_Checkout"/>
+            <module name="Paytrail_PaymentService" />
         </sequence>
     </module>
 </config>

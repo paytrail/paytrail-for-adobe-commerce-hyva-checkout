@@ -1,31 +1,12 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
     <body>
-        <referenceContainer name="checkout.payment.section">
-            <block name="checkout.payment-details" template="Paytrail_PaymentServiceHyvaCheckout::checkout/payment/method/someTemplate.phtml">
-                <arguments>
-                    <argument name="magewire" xsi:type="object">
-                        \Paytrail\PaymentServiceHyvaCheckout\Magewire\SomeBlock
-                    </argument>
-                </arguments>
-            </block>
-        </referenceContainer>
         <referenceBlock name="checkout.payment.methods">
             <block name="checkout.payment.method.paytrail"
                    as="paytrail"
-                   template="Paytrail_PaymentServiceHyvaCheckout::checkout/payment/method/card.phtml">
-                <arguments>
-                    <argument name="magewire" xsi:type="object">
-                        \Paytrail\PaymentServiceHyvaCheckout\Magewire\Checkout\Payment\Method\Card
-                    </argument>
-<!--                    <argument name="metadata" xsi:type="array">-->
-<!--                        <item name="icon" xsi:type="array">-->
-<!--                            <item name="svg" xsi:type="string">https://cdn2.hubspot.net/hubfs/335946/System/paytrail-logo.png</item>-->
-<!--                        </item>-->
-<!--                    </argument>-->
-                </arguments>
-            </block>
+                   template="Paytrail_PaymentServiceHyvaCheckout::checkout/payment/method/paytrail.phtml" />
         </referenceBlock>
     </body>
 </page>

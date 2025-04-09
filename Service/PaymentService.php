@@ -3,6 +3,7 @@
 namespace Paytrail\PaymentServiceHyvaCheckout\Service;
 
 use Magento\Checkout\Model\Session as SessionCheckout;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NotFoundException;
 use Magento\Framework\UrlInterface;
 use Magento\Payment\Gateway\Command\CommandException;
@@ -51,12 +52,13 @@ class PaymentService
             ]
         );
 
-        if (empty($response['data'] ?? null)) {
-            $this->logger->error('Paytrail Error: Empty response');
-        }
-
         if (!empty($response['error'])) {
             $this->logger->error('Paytrail Error: ' . $response['error']);
+        }
+
+        if (empty($response['data'] ?? null)) {
+            $this->logger->error('Paytrail Error: Empty response');
+            throw new LocalizedException(__('Unable to process payment. Please contact support.'));
         }
 
         return $response["data"];

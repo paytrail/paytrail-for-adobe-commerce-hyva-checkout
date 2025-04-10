@@ -1,31 +1,19 @@
-The README.md file content is generated automatically, see [Magento module README.md](https://github.com/magento/devdocs/wiki/Magento-module-README.md) for more information.
-
 # Paytrail_PaymentServiceHyvaCheckout module
 
+This module is created to support Paytrail payment service in Magento 2 Hyva theme with Hyva Checkout.
 
+## Currently Supported Integration type
+We are currently supporting only the "Redirect" integration type. So you need to set `Payment method selection 
+on a separate page` to `Yes` in the Magento admin Paytrail payment method settings.
 
-## Installation details
+## Installation:
 
-For information about a module installation in Magento 2, see [Enable or disable modules](https://devdocs.magento.com/guides/v2.4/install-gde/install/cli/install-cli-subcommands-enable.html).
+add the repository to your composer.json file with the command
+```bash 
+composer config repositories.paytrail_hyva_checkout vcs https://github.com/paytrail/paytrail-for-adobe-commerce-hyva-checkout.git
+```
 
-## Extensibility
-
-Extension developers can interact with the Paytrail_PaymentServiceGraphQl module. For more information about the Magento extension mechanism, see [Magento plug-ins](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/plugins.html).
-
-[The Magento dependency injection mechanism](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Paytrail_PaymentServiceGraphQl module.
-
-### Layouts
-
-The module introduces layout handles in the `view/adminhtml/layout` directory.
-
-For more information about a layout in Magento 2, see the [Layout documentation](https://devdocs.magento.com/guides/v2.4/frontend-dev-guide/layouts/layout-overview.html).
-
-### UI components
-
-You can extend product and category updates using the UI components located in the `view/adminhtml/ui_component` directory.
-
-For information about a UI component in Magento 2, see [Overview of UI components](https://devdocs.magento.com/guides/v2.4/ui_comp_guide/bk-ui_comps.html).
-
-## Additional information
-
-For information about significant changes in patch releases, see [Release information](https://devdocs.magento.com/guides/v2.4/release-notes/bk-release-notes.html).
+Then run the following command to install the module:
+```bash 
+composer require paytrail/paytrail-for-adobe-commerce-hyva-checkout
+```

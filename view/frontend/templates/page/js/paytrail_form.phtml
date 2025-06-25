@@ -1,0 +1,12 @@
+<div id="paytrail-form-wrapper"></div>
+<script>
+    window.addEventListener('checkout:init:evaluation', event => {
+        hyvaCheckout.evaluation.registerExecutable(
+            'my-form-action',
+            (result, element, component) => {
+                document.getElementById('paytrail-form-wrapper').innerHTML = result.arguments.params.html_data;
+                document.getElementById("checkout_form").submit();
+            }
+        );
+    })
+</script>

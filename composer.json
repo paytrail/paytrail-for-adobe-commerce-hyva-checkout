@@ -9,14 +9,14 @@
             "role": "Developer"
         },
         {
-            "name": "Konsta Kotivuori",
-            "email": "konsta.kotivuori@paytrail.com",
+            "name": "Joonas Loueranta",
+            "email": "joonas.loueranta@paytrail.com",
+            "homepage": "https://github.com/loueranta",
             "role": "Manager"
         }
     ],
     "require": {
-        "paytrail/paytrail-for-adobe-commerce": "*",
-        "hyva-themes/magento2-hyva-checkout": "^1.2"
+        "paytrail/paytrail-for-adobe-commerce": "*"
     },
     "version": "1.0.0",
     "type": "magento2-module",

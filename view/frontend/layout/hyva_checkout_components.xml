@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+>
+    <body>
+        <referenceBlock name="checkout.payment.methods">
+            <block name="checkout.payment.method.paytrail"
+                   as="paytrail"
+                   template="Paytrail_PaymentServiceHyvaCheckout::checkout/payment/payment_methods.phtml">
+                <arguments>
+                    <argument name="magewire" xsi:type="object">
+                        \Paytrail\PaymentServiceHyvaCheckout\Magewire\Checkout\Payment\PaymentMethods
+                    </argument>
+                    <argument name="metadata" xsi:type="array">
+                        <item name="icon" xsi:type="array">
+                            <item name="svg" xsi:type="string">https://cdn2.hubspot.net/hubfs/335946/System/paytrail-logo.png</item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

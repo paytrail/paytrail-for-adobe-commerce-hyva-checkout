@@ -20,7 +20,7 @@ $selectedMethodId = $paymentMethodsViewModel->getSelectedMethod();
 ?>
 <div id="#examplePspFormContainer" wire:key="paytrail_payment">
     <?php if(!$paymentMethodsViewModel->isSkippedBankSelection()): ?>
-    <div class="payment-method">
+    <div tabindex="0" class="payment-method">
         <div class="payment-method-title field choice">
             <label>
                 <div class="paytrail-logo">
@@ -52,7 +52,7 @@ $selectedMethodId = $paymentMethodsViewModel->getSelectedMethod();
                             $paymentMethod->getId().$paymentMethod->getName()
                         ) ? 'border: 2px solid #555555' : '' ?>">
                         <div class="paytrail-payment-method-logo">
-                            <img src="<?= $paymentMethod->getSvg(); ?>">
+                            <img src="<?= $paymentMethod->getSvg(); ?>" alt="<?= $paymentMethod->getName(); ?>">
                         </div>
                         <div class="paytrail-payment-method-title">
                             <span><?= $paymentMethod->getName(); ?></span>
@@ -67,7 +67,7 @@ $selectedMethodId = $paymentMethodsViewModel->getSelectedMethod();
                              $paymentMethod->getId()
                          ) ? 'border: 2px solid #555555' : '' ?>">
                         <div class="paytrail-payment-method-logo">
-                            <img src="<?= $paymentMethod->getSvg(); ?>">
+                            <img src="<?= $paymentMethod->getSvg(); ?>" alt="<?= $paymentMethod->getName(); ?>">
                         </div>
                         <div class="paytrail-payment-method-title">
                             <span><?= $paymentMethod->getName(); ?></span>

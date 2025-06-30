@@ -7,12 +7,6 @@
             "email": "magentoservices@solteq.com",
             "homepage": "http://github.com/solteq",
             "role": "Developer"
-        },
-        {
-            "name": "Joonas Loueranta",
-            "email": "joonas.loueranta@paytrail.com",
-            "homepage": "https://github.com/loueranta",
-            "role": "Manager"
         }
     ],
     "require": {

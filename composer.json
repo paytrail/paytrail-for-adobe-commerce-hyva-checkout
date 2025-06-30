@@ -7,18 +7,12 @@
             "email": "magentoservices@solteq.com",
             "homepage": "http://github.com/solteq",
             "role": "Developer"
-        },
-        {
-            "name": "Joonas Loueranta",
-            "email": "joonas.loueranta@paytrail.com",
-            "homepage": "https://github.com/loueranta",
-            "role": "Manager"
         }
     ],
     "require": {
         "paytrail/paytrail-for-adobe-commerce": "*"
     },
-    "version": "1.0.0",
+    "version": "1.1.0",
     "type": "magento2-module",
     "license": "MIT",
     "autoload": {

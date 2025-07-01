@@ -12,6 +12,8 @@ class Config
     public const XML_PATH_PAYMENT_PAYTRAIL_SHOW_ADDITIONAL_INFORMATION = 'payment/paytrail/show_additional_information';
 
     /**
+     * Config constructor.
+     *
      * @param ScopeConfigInterface $scopeConfig
      * @param StoreManagerInterface $storeManager
      */
@@ -19,17 +21,13 @@ class Config
         protected ScopeConfigInterface $scopeConfig,
         protected StoreManagerInterface $storeManager
     ) {
-
     }
 
     public function canShowAdditionalInformation(): bool
     {
-//        $websiteId = $this->storeInformation->execute(StoreInformation::KEY_WEBSITE_ID);
-
         return (bool) $this->scopeConfig->getValue(
             self::XML_PATH_PAYMENT_PAYTRAIL_SHOW_ADDITIONAL_INFORMATION,
             ScopeInterface::SCOPE_WEBSITE
-//            $websiteId
         );
     }
 }

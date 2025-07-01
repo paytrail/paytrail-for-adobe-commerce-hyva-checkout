@@ -7,18 +7,12 @@
             "email": "magentoservices@solteq.com",
             "homepage": "http://github.com/solteq",
             "role": "Developer"
-        },
-        {
-            "name": "Konsta Kotivuori",
-            "email": "konsta.kotivuori@paytrail.com",
-            "role": "Manager"
         }
     ],
     "require": {
-        "paytrail/paytrail-for-adobe-commerce": "*",
-        "hyva-themes/magento2-hyva-checkout": "^1.2"
+        "paytrail/paytrail-for-adobe-commerce": "*"
     },
-    "version": "1.0.0",
+    "version": "1.1.0",
     "type": "magento2-module",
     "license": "MIT",
     "autoload": {

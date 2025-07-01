@@ -1,0 +1,84 @@
+<?php
+
+/** @var AbstractBlock $block */
+
+use Magento\Framework\View\Element\AbstractBlock;
+use Paytrail\PaymentServiceHyvaCheckout\ViewModel\PaymentMethodsViewModel;
+use Magento\Framework\View\Element\Template;
+use Paytrail\PaymentService\Model\Payment\PaymentDataProvider;
+
+/** @var PaymentMethodsViewModel $paymentMethodsViewModel */
+$paymentMethodsViewModel = $viewModels->require(PaymentMethodsViewModel::class);
+
+/** @var Template $block */
+/** @var PaymentDataProvider $method */
+
+$method = $block->getData('method');
+
+$selectedMethodId = $paymentMethodsViewModel->getSelectedMethod();
+
+?>
+<div id="#examplePspFormContainer" wire:key="paytrail_payment">
+    <?php if(!$paymentMethodsViewModel->isSkippedBankSelection()): ?>
+    <div tabindex="0" class="payment-method">
+        <div class="payment-method-title field choice">
+            <label>
+                <div class="paytrail-logo">
+                    <div class="paytrail-logo-container">
+                        <img src="https://cdn2.hubspot.net/hubfs/335946/System/paytrail-logo.png" alt="Paytrail Payment Service">
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="paytrail-payment-methods">
+            <!-- Collapsible elements for payment groups-->
+            <?php foreach ($paymentMethodsViewModel->getGroupedPaymentMethods()['groups'] as $methodGroup): ?>
+            <div class="paytrail-payment-groups">
+                <div class='paytrail-group-collapsible-new-ui'>
+                    <div class="paytrail-group-header-wrapper-new-ui">
+                        <div class="paytrail-group-title">
+                            <span><?= $methodGroup['name']; ?></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="paytrail-group-wrapper">
+                    <?php foreach ($methodGroup['providers'] as $paymentMethod): ?>
+                    <?php if ($paymentMethod->getGroup() === 'creditcard'): ?>
+                    <div tabindex="0" class="paytrail-payment-method" wire:model="selectedPaymentMethodId"
+                         wire:key="paytrail_payment_method_<?= $paymentMethod->getId().$paymentMethod->getName(); ?>"
+                         wire:click="setPaymentMethod('<?= $paymentMethod->getId().$paymentMethod->getName(); ?>')"
+                         wire:keyup.enter="setPaymentMethod('<?= $paymentMethod->getId().$paymentMethod->getName(); ?>')"
+                        style="<?= $paymentMethodsViewModel->isSelectedPaymentMethod(
+                            $paymentMethod->getId().$paymentMethod->getName()
+                        ) ? 'border: 2px solid #555555' : '' ?>">
+                        <div class="paytrail-payment-method-logo">
+                            <img src="<?= $paymentMethod->getSvg(); ?>" alt="<?= $paymentMethod->getName(); ?>">
+                        </div>
+                        <div class="paytrail-payment-method-title">
+                            <span><?= $paymentMethod->getName(); ?></span>
+                        </div>
+                    </div>
+                    <?php else: ?>
+                    <div tabindex="0" class="paytrail-payment-method" wire:model="selectedPaymentMethodId"
+                         wire:key="paytrail_payment_method_<?= $paymentMethod->getId(); ?>"
+                         wire:click="setPaymentMethod('<?= $paymentMethod->getId(); ?>')"
+                         wire:keyup.enter="setPaymentMethod('<?= $paymentMethod->getId(); ?>')"
+                         style="<?= $paymentMethodsViewModel->isSelectedPaymentMethod(
+                             $paymentMethod->getId()
+                         ) ? 'border: 2px solid #555555' : '' ?>">
+                        <div class="paytrail-payment-method-logo">
+                            <img src="<?= $paymentMethod->getSvg(); ?>" alt="<?= $paymentMethod->getName(); ?>">
+                        </div>
+                        <div class="paytrail-payment-method-title">
+                            <span><?= $paymentMethod->getName(); ?></span>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>

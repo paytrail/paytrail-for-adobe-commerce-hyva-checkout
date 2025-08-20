@@ -68,14 +68,14 @@ class Index extends \Paytrail\PaymentService\Controller\Receipt\Index
         }
 
         $result = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_REDIRECT);
-        if (in_array($status, self::ORDER_SUCCESS_STATUSES)) {
-            return $result->setPath($this->getSuccessUrl($order));
-        } elseif (in_array($status, self::ORDER_CANCEL_STATUSES)) {
+        if ($failMessages || in_array($status, self::ORDER_CANCEL_STATUSES)) {
             foreach ($failMessages as $failMessage) {
                 $this->messageManager->addErrorMessage($failMessage);
             }
 
             return $result->setPath($this->getCartUrl($order));
+        } elseif (in_array($status, self::ORDER_SUCCESS_STATUSES)) {
+            return $result->setPath($this->getSuccessUrl($order));
         }
 
         $this->messageManager->addErrorMessage(

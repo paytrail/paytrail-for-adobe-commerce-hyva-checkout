@@ -4,7 +4,10 @@ namespace Paytrail\PaymentServiceHyvaCheckout\Model\Magewire\Checkout\Payment;
 
 use Hyva\Checkout\Model\Magewire\Component\EvaluationResultFactory;
 use Hyva\Checkout\Model\Magewire\Component\EvaluationResultInterface;
+use Magento\Checkout\Model\Session;
+use Magento\Framework\Exception\LocalizedException;
 use Paytrail\PaymentService\Gateway\Config\Config;
+use Paytrail\PaymentServiceHyvaCheckout\Magewire\Checkout\Payment\PaymentMethods;
 use Paytrail\PaymentServiceHyvaCheckout\Service\PaymentService;
 use Hyva\Checkout\Model\Magewire\Payment\AbstractOrderData;
 use Hyva\Checkout\Model\Magewire\Payment\AbstractPlaceOrderService;
@@ -23,19 +26,23 @@ class PaytrailPlaceOrderService extends AbstractPlaceOrderService
      * @param CartManagementInterface $cartManagement
      * @param PaymentService $paymentService
      * @param Config $gatewayConfig
+     * @param Session $checkoutSession
      * @param AbstractOrderData|null $orderData
      */
     public function __construct(
         CartManagementInterface $cartManagement,
         PaymentService $paymentService,
         private Config $gatewayConfig,
-        AbstractOrderData $orderData = null
+        private Session $checkoutSession,
+        AbstractOrderData $orderData = null,
     ) {
         parent::__construct($cartManagement, $orderData);
         $this->paymentService = $paymentService;
     }
 
     /**
+     * Get redirect URL after order placement.
+     *
      * @param Quote $quote
      * @param int|null $orderId
      * @return string
@@ -49,14 +56,21 @@ class PaytrailPlaceOrderService extends AbstractPlaceOrderService
     }
 
     /**
+     * Evaluate completion of the order placement.
+     *
      * @param EvaluationResultFactory $resultFactory
      * @param int|null $orderId
      * @return EvaluationResultInterface
      * @throws CommandException
+     * @throws LocalizedException
      * @throws NotFoundException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function evaluateCompletion(EvaluationResultFactory $resultFactory, ?int $orderId = null): EvaluationResultInterface
     {
+        if (!$this->canPlaceOrder()) {
+            throw new LocalizedException(__("Payment method is not selected."));
+        }
         if (!$this->gatewayConfig->getSkipBankSelection()) {
             $response = $this->paymentService->execute();
             // All the data that you want to add to the frontend.
@@ -80,6 +94,8 @@ class PaytrailPlaceOrderService extends AbstractPlaceOrderService
     }
 
     /**
+     * Can redirect validation.
+     *
      * @return bool
      */
     public function canRedirect(): bool
@@ -92,10 +108,19 @@ class PaytrailPlaceOrderService extends AbstractPlaceOrderService
     }
 
     /**
+     * Can place order validation.
+     *
      * @return bool
+     * @throws LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function canPlaceOrder(): bool
     {
-        return true;
+        $quote = $this->checkoutSession->getQuote();
+        if ($quote->getPayment()->getAdditionalInformation(PaymentMethods::SELECTED_PAYMENT_METHOD_ID)) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -34,7 +34,7 @@ class PaytrailPlaceOrderService extends AbstractPlaceOrderService
         PaymentService $paymentService,
         private Config $gatewayConfig,
         private Session $checkoutSession,
-        AbstractOrderData $orderData = null,
+        ?AbstractOrderData $orderData = null,
     ) {
         parent::__construct($cartManagement, $orderData);
         $this->paymentService = $paymentService;

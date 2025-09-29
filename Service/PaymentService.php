@@ -10,6 +10,7 @@ use Magento\Payment\Gateway\Command\CommandException;
 use Magento\Payment\Gateway\Command\CommandManagerPoolInterface;
 use Paytrail\PaymentService\Gateway\Config\Config;
 use Paytrail\PaymentService\Model\Email\Order\PendingOrderEmailConfirmation;
+use Paytrail\PaymentService\Model\PaymentMethod\OrderPaymentMethodData;
 use Paytrail\PaymentService\Model\ProviderForm;
 use Psr\Log\LoggerInterface;
 
@@ -50,7 +51,7 @@ class PaymentService
         $commandExecutor = $this->commandManagerPool->get(Config::CODE);
         $order = $this->sessionCheckout->getLastRealOrder();
         $selectedPaymentMethod = $this->combineCreditCardMethods(
-            $order->getPayment()->getAdditionalInformation()['selectedPaymentMethodId'] ?? Config::CODE
+            $order->getPayment()->getAdditionalInformation()[OrderPaymentMethodData::SELECTED_PAYMENT_METHOD_CODE] ?? Config::CODE
         );
 
         /**

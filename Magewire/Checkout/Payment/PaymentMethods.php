@@ -9,11 +9,10 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Vault\Model\Ui\VaultConfigProvider;
 use Magewirephp\Magewire\Component;
+use Paytrail\PaymentService\Model\PaymentMethod\OrderPaymentMethodData;
 
 class PaymentMethods extends Component
 {
-    public const SELECTED_PAYMENT_METHOD_ID = 'selectedPaymentMethodId';
-
     /**
      * @var string
      */
@@ -42,7 +41,7 @@ class PaymentMethods extends Component
             ->getQuote()
             ->getPayment()
             ->setAdditionalInformation(
-                self::SELECTED_PAYMENT_METHOD_ID,
+                OrderPaymentMethodData::SELECTED_PAYMENT_METHOD_CODE,
                 $paymentMethodId
             )
             ->save();

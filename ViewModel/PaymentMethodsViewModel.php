@@ -7,6 +7,7 @@ use Magento\Checkout\Model\Session;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Paytrail\PaymentService\Gateway\Command\MethodProvider;
 use Paytrail\PaymentService\Gateway\Config\Config;
+use Paytrail\PaymentService\Model\PaymentMethod\OrderPaymentMethodData;
 use Paytrail\PaymentServiceHyvaCheckout\Magewire\Checkout\Payment\PaymentMethods;
 
 class PaymentMethodsViewModel implements ArgumentInterface
@@ -60,7 +61,7 @@ class PaymentMethodsViewModel implements ArgumentInterface
      */
     public function getSelectedMethod(): string
     {
-        return $this->checkoutSession->getQuote()->getPayment()->getAdditionalInformation(PaymentMethods::SELECTED_PAYMENT_METHOD_ID) ?? '';
+        return $this->checkoutSession->getQuote()->getPayment()->getAdditionalInformation(OrderPaymentMethodData::SELECTED_PAYMENT_METHOD_CODE) ?? '';
     }
 
     public function isSkippedBankSelection()

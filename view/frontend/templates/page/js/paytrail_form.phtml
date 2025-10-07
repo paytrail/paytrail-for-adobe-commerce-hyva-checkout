@@ -9,4 +9,21 @@
             }
         );
     })
+
+    function paytrailPaymentMethod() {
+        const method = this.$el.dataset.method;
+
+        return {
+            setPaymentMethod() {
+                this.$wire.setPaymentMethod(method);
+            },
+        }
+    }
+
+    window.addEventListener(
+        'alpine:init',
+        () => Alpine.data('paytrailPaymentMethod', paytrailPaymentMethod),
+        {once: true}
+    )
 </script>
+<?php isset($hyvaCsp) && $hyvaCsp->registerInlineScript() ?>

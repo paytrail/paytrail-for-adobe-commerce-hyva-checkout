@@ -7,7 +7,7 @@ use Hyva\Checkout\Model\Magewire\Component\EvaluationResultInterface;
 use Magento\Checkout\Model\Session;
 use Magento\Framework\Exception\LocalizedException;
 use Paytrail\PaymentService\Gateway\Config\Config;
-use Paytrail\PaymentServiceHyvaCheckout\Magewire\Checkout\Payment\PaymentMethods;
+use Paytrail\PaymentService\Model\PaymentMethod\OrderPaymentMethodData;
 use Paytrail\PaymentServiceHyvaCheckout\Service\PaymentService;
 use Hyva\Checkout\Model\Magewire\Payment\AbstractOrderData;
 use Hyva\Checkout\Model\Magewire\Payment\AbstractPlaceOrderService;
@@ -34,7 +34,7 @@ class PaytrailPlaceOrderService extends AbstractPlaceOrderService
         PaymentService $paymentService,
         private Config $gatewayConfig,
         private Session $checkoutSession,
-        AbstractOrderData $orderData = null,
+        ?AbstractOrderData $orderData = null,
     ) {
         parent::__construct($cartManagement, $orderData);
         $this->paymentService = $paymentService;
@@ -117,7 +117,7 @@ class PaytrailPlaceOrderService extends AbstractPlaceOrderService
     public function canPlaceOrder(): bool
     {
         $quote = $this->checkoutSession->getQuote();
-        if ($quote->getPayment()->getAdditionalInformation(PaymentMethods::SELECTED_PAYMENT_METHOD_ID)) {
+        if ($quote->getPayment()->getAdditionalInformation(OrderPaymentMethodData::SELECTED_PAYMENT_METHOD_CODE)) {
             return true;
         }
 
